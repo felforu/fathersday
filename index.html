@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Father's Day 爸爸!</title>
+  <style>
+    /* Center the card on the screen */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #fcfbf7; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Set up the 3D space */
+    .card-container {
+      width: 320px;
+      height: 460px; 
+      perspective: 1000px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* The card wrapper */
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    /* Flip the card */
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Base styles for both sides */
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 15px 35px rgba(255, 207, 94, 0.2), 0 10px 20px rgba(0,0,0,0.08);
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Style the Front (Using #ffcf5e) */
+    .card-front {
+      background: linear-gradient(135deg, #ffcf5e, #ffa834);
+      color: #4a3300; 
+    }
+
+    .card-front h2 {
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+
+    .tap-hint {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      letter-spacing: 1px;
+      margin-top: 5px;
+      margin-bottom: 0;
+    }
+
+    /* Style the Back (Inside) */
+    .card-back {
+      background-color: #ffffff;
+      color: #4a3300;
+      transform: rotateY(180deg);
+      border: 5px solid #ffcf5e; 
+    }
+
+    .card-back h2 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 5px;
+      color: #ffa834;
+    }
+
+    .card-back p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 5px 0 0 0;
+    }
+
+    /* Layout for Front Image (Mr. Happy) */
+    .front-gif {
+      width: 75%;
+      max-height: 170px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    /* Layout for Back Image (Cat GIF) */
+    .back-gif {
+      width: 80%;
+      max-height: 150px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    /* CONFETTI STYLES */
+    #confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="confetti-container"></div>
+
+  <div class="card-container">
+    <div class="card" id="myCard">
+      <!-- Front of the Card (Mr. Happy) -->
+      <div class="card-front">
+        <h2>For You, Dad 💛</h2>
+        
+        <!-- FRONT GIF: Mr. Happy -->
+        <img src="https://squarespace-cdn.com" alt="Mr. Happy" class="front-gif">
+        
+        <p class="tap-hint">(Click to Open)</p>
+      </div>
+      
+      <!-- Inside/Back of the Card (Cat GIF) -->
+      <div class="card-back">
+        <h2>Happy Father's Day 爸爸! 🎉</h2>
+        
+        <!-- BACK GIF: Poku Meow Cat -->
+        <img src="https://giphy.com" alt="Father's Day Cat" class="back-gif">
+        
+        <p>Thank you for everything you do, i coded this myself heehee!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('myCard');
+    const confettiContainer = document.getElementById('confetti-container');
+
+    // Harmonized golden-yellow confetti palette
+    const colors = ['#ffcf5e', '#ffa834', '#ffeb3b', '#fff6d1', '#ffc107'];
+
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+      
+      if (card.classList.contains('flipped')) {
+        createConfetti(100);
+      }
+    });
+
+    function createConfetti(count) {
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('div');
+        piece.classList.add('confetti');
+        
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const size = Math.random() * 8 + 6 + 'px';
+        piece.style.width = size;
+        piece.style.height = size;
+        
+        piece.style.animationDuration = Math.random() * 2 + 2 + 's';
+        piece.style.animationDelay = Math.random() * 0.5 + 's';
+        
+        confettiContainer.appendChild(piece);
+        
+        setTimeout(() => {
+          piece.remove();
+        }, 4500);
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
